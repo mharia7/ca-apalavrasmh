@@ -1,0 +1,38 @@
+    });
+    window.addEventListener("mouseup", e => {
+      if(selecting) {
+        selecting = false;
+        const word = getWordFromCells(selectedCells);
+        const wordReverse = word.split("").reverse().join("");
+        if(checkWord(word)) {
+          markWordFound(word, selectedCells);
+        } else if(checkWord(wordReverse)) {
+          markWordFound(wordReverse, selectedCells);
+        } else {
+          selectedCells.forEach(td => {
+            td.style.backgroundColor = "";
+            td.style.color = "#1abc9c";
+          });
+          msg.textContent = "";
+        }
+        selectedCells = [];
+        startCell = null;
+      }
+    });
+  }
+  // Helper to check if the cell has the given color (background-color)
+  function cCellsHasColor(cell, color) {
+    return cell.style.backgroundColor === color;
+  }
+  function init() {
+    placeWords();
+    fillEmpty();
+    renderGrid();
+    renderWordList();
+    attachEventHandlers();
+  }
+  init();
+})();
+</script>
+</body>
+</html>
